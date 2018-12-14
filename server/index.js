@@ -1,6 +1,11 @@
+const bodyParser = require('body-parser');
+const db = require('../database/index');
+const git = require('../helpers/github');
 const express = require('express');
 let app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
