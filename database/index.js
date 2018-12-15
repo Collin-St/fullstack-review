@@ -12,7 +12,7 @@ let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   username: String,
   id: { 
-    Number,
+    type: Number,
     unique: true },
   repos_url: String,
   stars: Number

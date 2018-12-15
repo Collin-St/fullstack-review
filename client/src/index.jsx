@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import { getReposByUsername } from '../../helpers/github.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,9 +14,42 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.getRanking();
+  }
+
+  getRanking() {
+    $.post({
+      type: 'POST',
+      url: 'http://localhost:1128/repos',
+      data: data,
+      success: this.setState(() => {
+        return {
+          repos: data.repos
+        }
+      })
+    })
+  }
+
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.post({
+      type: 'POST',
+      url: 'http://localhost:1128/repos',
+      success: function() {
+        console.log('POST successful')
+      }
+    })
+    
+    // $.ajax({
+    //   type: "POST",
+    //   url: getReposByUsername,
+    //   data: data,
+    //   success: function() {
+    //     console.log('success')
+    //   },
+    //   dataType: dataType
+    // })
   }
 
   render () {
